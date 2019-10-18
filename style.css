@@ -1,0 +1,66 @@
+#chatDiv {
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 50vw;
+    height: 60vh;
+    display: flex;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+    #buttonDiv {
+        width: 90px;
+        /*background-color: black;*/
+        /*float: right;*/
+    }
+
+        #expandButton {
+            background-color: #F08080;
+            color: white;
+            position: absolute;
+            bottom:10px;
+            right: 10px;
+            float: right;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: none;
+            outline:none;
+        }
+
+        #expandButton:hover {
+            background-color: #CD5C5C;
+            color: white;
+        }
+
+    #popup {
+        /*float:left;*/
+        background-color: red;
+        flex-grow: 1;
+        visibility: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+        #chat-window {
+            flex-grow: 10;
+            background-color: blue;
+        }
+
+        #input-div {
+            flex-grow: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+        }
+
+            #container-input {
+                flex-grow: 9;
+            }
+
+            #container-button {
+                flex-grow: 1;
+            }
+
