@@ -3,7 +3,7 @@
     position: fixed;
     bottom: 0;
     right: 0;
-    width: 50vw;
+    width: 30vw;
     height: 60vh;
     display: flex;
     margin-bottom: 10px;
@@ -12,8 +12,6 @@
 
     #buttonDiv {
         width: 90px;
-        /*background-color: black;*/
-        /*float: right;*/
     }
 
         #expandButton {
@@ -36,20 +34,22 @@
         }
 
     #popup {
-        /*float:left;*/
-        background-color: red;
+        margin-right: 2%;
         flex-grow: 1;
         visibility: hidden;
         display: flex;
         flex-direction: column;
+        border: 1px solid black;
     }
 
         #chat-window {
-            flex-grow: 10;
-            background-color: blue;
+            background-color: #F08080;
+            flex-grow: 20;
         }
 
         #input-div {
+            border-top: 1px solid black;
+            background-color: #CD5C5C;
             flex-grow: 1;
             width: 100%;
             display: flex;
@@ -58,9 +58,39 @@
 
             #container-input {
                 flex-grow: 9;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
+
+                #area-text {
+                    resize: none;
+                    width: 95%;
+                    height: 80%;
+                    font-size: 18px;
+                }
 
             #container-button {
                 flex-grow: 1;
+                display: flex;
+                align-items: center;
+                text-align: center;
+                justify-content: center;
             }
 
+                #container-button #send-button {
+                    background-color: #60b8ff;
+                    border: none;
+                    color: white;
+                    width: 90%;
+                    height: 60%;
+                    margin-right: 10%;
+                    text-align: center;
+                    text-decoration: none;
+                    font-size: 16px;
+                    outline:none;
+                }
+
+                #container-button #send-button:hover {
+                    background-color: #80b8f0;
+                }
