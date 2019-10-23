@@ -3,8 +3,8 @@
     position: fixed;
     bottom: 0;
     right: 0;
-    width: 40vw;
-    height: 60vh;
+    width: 30vw;
+    height: 80vh;
     display: flex;
     margin-bottom: 10px;
     margin-right: 10px;
@@ -39,7 +39,10 @@
         visibility: hidden;
         display: flex;
         flex-direction: column;
-        border: 1px solid black;
+        /*border: 1px solid black;*/
+        -webkit-box-shadow: -15px 15px 48px -1px rgba(0,0,0,0.75);
+        -moz-box-shadow: -15px 15px 48px -1px rgba(0,0,0,0.75);
+        box-shadow: -15px 15px 48px -1px rgba(0,0,0,0.75);
     }
 
         #chat-window {
@@ -48,7 +51,7 @@
         }
 
         #input-div {
-            background-color: darkgrey;
+            background-color: #F5F5F5;
             flex-grow: 1;
             width: 100%;
             display: flex;
@@ -64,8 +67,8 @@
 
                 #area-text {
                     font-family: Arial, Helvetica, sans-serif;
-                    background-color: darkgrey;
-                    color: white;
+                    background-color: #F5F5F5;
+                    color: #707070;
                     resize: none;
                     width: 95%;
                     height: 50%;
@@ -75,7 +78,7 @@
                 }
 
                 #area-text::placeholder {
-                    color: white;
+                    color: #909090;
                 }
 
             #container-button {
@@ -87,7 +90,7 @@
             }
 
                 #container-button #send-button {
-                    font-size: 30px;
+                    font-size: 40px;
                     border: none;
                     color: #40E0D0;
                     width: 90%;
@@ -95,7 +98,6 @@
                     margin-right: 10%;
                     text-align: center;
                     text-decoration: none;
-                    /*font-size: 16px;*/
                     outline:none;
                 }
 
