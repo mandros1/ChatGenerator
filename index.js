@@ -14,67 +14,68 @@ const mainDiv = document.getElementById('chat-container');
                 const divTextAreaContainer = document.createElement('div');
                 divTextAreaContainer.setAttribute('id', 'container-input');
 
-                    const textArea = document.createElement('textarea');
-                    textArea.setAttribute('data-gramm_editor', 'false'); //this can be ommitted it is used to disable Grammarly
-                    textArea.setAttribute('type', 'text');
-                    textArea.setAttribute('id', 'area-text');
-                    textArea.setAttribute('name', 'text');
-                    textArea.setAttribute('placeholder', 'Ask me a question');
+                    const inputField = document.createElement('input');
+                    inputField.setAttribute('data-gramm_editor', 'false'); //this can be ommitted it is used to disable Grammarly
+                    inputField.setAttribute('type', 'text');
+                    inputField.setAttribute('id', 'input-text');
+                    inputField.setAttribute('name', 'text');
+                        let a = document.createElement('span');
+                        a.innerHTML = "Po&scaron;alji poruku";
+                    inputField.setAttribute('placeholder', a.textContent);
 
-                divTextAreaContainer.appendChild(textArea);
+                divTextAreaContainer.appendChild(inputField);
 
                 const divButtonContainer = document.createElement('div');
                 divButtonContainer.setAttribute('id', 'container-button');
 
-                    const buttonSend = document.createElement('button');
-                    buttonSend.innerText = "Send";
-                    buttonSend.setAttribute('id', 'send-button');
-                    buttonSend.addEventListener('click', ()=>{
-                        const divChatWindow = document.getElementById('area-text');
-                        let inputText = divChatWindow.innerText;
+                    const divSendAction = document.createElement('div');
+                    divSendAction.innerHTML = "&#187;";
+                    divSendAction.setAttribute('id', 'send-button');
 
-                        if(inputText.length === 0) {
-                            window.alert('You must type something in the input before clicking "Send"')
+                    divSendAction.addEventListener('click', ()=>{
+
+                        const inputElement = document.getElementById('input-text');
+                        const text = inputElement.value;
+
+                        if(text.length === 0) {
+                            window.alert('Morate unjeti pitanje prije klika na gumb')
                         } else {
-                            let userId = localStorage.getItem('userId');
-                            if(userId){
-                                // Do everything that needs to be done
-                            } else {
-                                // can't send anything to API without userId
-                            }
+
+                            // ENABLE THIS AFTER TESTING - needed for our API
+                                // let userId = localStorage.getItem('userId');
+                                // if(userId){
+                                //     // Do everything that needs to be done
+                                // } else {
+                                //     // can't send anything to API without userId
+                                // }
+
+                            let sanitizedText = text.replace(/[|&;$%@"<>()+,]/g, "");
+
+                            let div = document.createElement('div');
+                            div.setAttribute('class', 'user-message');
+                            div.innerText = sanitizedText;
+                            document.getElementById('chat-window').appendChild(div);
+
+                            inputElement.value = "";
+
+                            // TODO: send message to watson and append all answers that he gives back
                         }
-
-                        // Check if there is anything in the input
-
-                        // if NO,
-
-                            // 1. send alert
-
-                        // if YES
-
-                            // 1. Take out the userId/token from local storage
-
-                            // 2. SANITIZE AND VALIDATE inputText
-
-                            // 3. append div element to the chatWindow for User
-
-                            // 4. Call API and get response
-
-                            // 5. Append div element to the chatWindow for Watson answer
-
-                        // provjeriti ima li ista u text area
                     });
 
+                divButtonContainer.appendChild(divSendAction);
+
+            divInputContainer.appendChild(divTextAreaContainer);
+            divInputContainer.appendChild(divButtonContainer);
 
         divPopupWindow.appendChild(divChatWindow);
-
-            // OVDJE IDU 2 DIVA I SVE STO TREBA
+        divPopupWindow.appendChild(divInputContainer);
 
         const divPopupButton = document.createElement('div');
         divPopupButton.setAttribute('id', 'buttonDiv');
 
             // Button that shows and hides chat popup window is defined here
             const chatPopupButton = document.createElement('button');
+            // TODO: find a way to replace 'CHAT' text with an icon/icons (enable/disable icon)
             chatPopupButton.innerText = "CHAT";
             chatPopupButton.setAttribute('id', 'expandButton');
 
@@ -93,7 +94,27 @@ const mainDiv = document.getElementById('chat-container');
     divChatContainer.appendChild(divPopupButton);
 
 
-    // mainDiv.appendChild(divChatContainer);
+mainDiv.appendChild(divChatContainer);
+
+/**
+
+    const sendButton = document.getElementById('send-button');
+    sendButton.addEventListener("click", ()=> {
+
+        let txt = document.getElementById('input-text').value;
+        if(txt.length > 0 ) {
+            let div = document.createElement('div');
+            div.setAttribute('class', 'user-message');
+            div.innerText = txt
+            document.getElementById('chat-window').appendChild(div);
+            const div2 = document.createElement('div');
+            div2.setAttribute('class', 'chatbot-message');
+            div2.innerText = `Answer to "${txt}" is going to go here`;
+            document.getElementById('chat-window').appendChild(div2);
+        } else {
+            window.alert('Input cannot be empty');
+        }
+    });
 
 
     const btn = document.getElementById('expandButton');
@@ -105,3 +126,4 @@ const mainDiv = document.getElementById('chat-container');
             : div.style.visibility = 'hidden';
 
     });
+*/
