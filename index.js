@@ -59,6 +59,38 @@ const mainDiv = document.getElementById('chat-container');
                             inputElement.value = "";
 
                             // TODO: send message to watson and append all answers that he gives back
+
+                            let apiUrl = "http://localhost:3005/api/question";
+
+                            let xhr = new XMLHttpRequest();
+                            xhr.open("POST", apiUrl, true);
+                            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                            xhr.setRequestHeader("token", "DF3A2DEEB01F32C0C6B98DC810FB0D80");
+                            // xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+
+                            // xhr.onreadystatechange = function () {
+                            //     if (this.readyState != 4) return;
+                            //
+                            //     if (this.status == 200) {
+                            //         let data = JSON.parse(this.responseText);
+                            //         console.log(data);
+                            //         // we get the returned data
+                            //     }
+                            //
+                            //     // end of state change: it can be after some time (async)
+                            // };
+
+                            xhr.send(JSON.stringify({
+                                userId: 32153214,
+                                question: sanitizedText
+                            }));
+
+
+
+
+                            // https://dog.ceo/api/breeds/image/random
+
                         }
                     });
 
