@@ -48,49 +48,42 @@ const mainDiv = document.getElementById('chat-container');
                                 // } else {
                                 //     // can't send anything to API without userId
                                 // }
+                                let userId = 423532543;
 
                             let sanitizedText = text.replace(/[|&;$%@"<>()+,]/g, "");
 
-                            let div = document.createElement('div');
-                            div.setAttribute('class', 'user-message');
-                            div.innerText = sanitizedText;
-                            document.getElementById('chat-window').appendChild(div);
+                            appendChatDivElement(sanitizedText, true);
+
+                            // let div = document.createElement('div');
+                            // div.setAttribute('class', 'user-message');
+                            // div.innerText = sanitizedText;
+                            // document.getElementById('chat-window').appendChild(div);
 
                             inputElement.value = "";
 
-                            // TODO: send message to watson and append all answers that he gives back
-
+                            // TODO: Change the route
                             let apiUrl = "http://localhost:3005/api/question";
 
                             let xhr = new XMLHttpRequest();
+
+                            xhr.onreadystatechange = function() {
+                                if (xhr.readyState === XMLHttpRequest.DONE) {
+                                    let json = JSON.parse(xhr.responseText);
+                                    let watsonMessages = json.message;
+                                    let values = Object.values(watsonMessages);
+                                    for (let i=0; i<values.length; i++) {
+                                        if (values[i]['response_type'] === 'text') {
+                                            appendChatDivElement(values[i]['text'], false);
+                                        }
+                                    }
+                                }
+                            };
+
                             xhr.open("POST", apiUrl, true);
                             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                             xhr.setRequestHeader("token", "DF3A2DEEB01F32C0C6B98DC810FB0D80");
-                            // xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
 
-
-                            // xhr.onreadystatechange = function () {
-                            //     if (this.readyState != 4) return;
-                            //
-                            //     if (this.status == 200) {
-                            //         let data = JSON.parse(this.responseText);
-                            //         console.log(data);
-                            //         // we get the returned data
-                            //     }
-                            //
-                            //     // end of state change: it can be after some time (async)
-                            // };
-
-                            xhr.send(JSON.stringify({
-                                userId: 32153214,
-                                question: sanitizedText
-                            }));
-
-
-
-
-                            // https://dog.ceo/api/breeds/image/random
-
+                            xhr.send(`userId=${userId}&question=${sanitizedText}`);
                         }
                     });
 
@@ -159,3 +152,11 @@ mainDiv.appendChild(divChatContainer);
 
     });
 */
+
+function appendChatDivElement(text, isUser) {
+    let divClass = isUser === true ? 'user-message' : 'chatbot-message';
+    let div = document.createElement('div');
+    div.setAttribute('class', divClass);
+    div.innerHTML = text;
+    document.getElementById('chat-window').appendChild(div);
+}
