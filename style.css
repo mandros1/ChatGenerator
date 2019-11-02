@@ -14,8 +14,7 @@
         width: 5vw;
     }
 
-        #expandButton {
-            background-color: #F08080;
+        .chatExpandButton {
             color: white;
             position: absolute;
             bottom:10px;
@@ -28,13 +27,26 @@
             outline:none;
         }
 
-        #expandButton:hover {
+        .activeButton {
+            background-color: #CD5C5C;
+        }
+
+        .activeButton:hover{
+            background-color: #F08080;
+            color: white;
+        }
+
+        .inactiveButton {
+            background-color: #F08080;
+        }
+
+        .inactiveButton:hover{
             background-color: #CD5C5C;
             color: white;
         }
 
     #popup {
-        width: 25vw;
+        width: 35vw;
         margin-right: 2%;
         visibility: hidden;
         -webkit-box-shadow: -15px 15px 48px -1px rgba(0,0,0,0.75);
@@ -42,10 +54,48 @@
         box-shadow: -15px 15px 48px -1px rgba(0,0,0,0.75);
     }
 
+        #chat-header {
+            display: flex;
+            height: 10%;
+            flex-direction: row;
+            background-color: #CD5C5C;
+            text-align: center;
+            vertical-align: center;
+        }
+
+            #chat-header img{
+                padding: 2px;
+                margin-left: 1vw;
+            }
+
+            #div1 {
+                display: table;
+                overflow: hidden;
+                height: 100%;
+                width: 100%;
+            }
+
+            #div2 {
+                display: table-cell;
+                vertical-align: middle;
+                height: 100%;
+            }
+
+            #chat-header div div h2{
+                /*background-color: green;*/
+                /*height: 100%;*/
+                width: 40%;
+                margin: 0;
+                text-align: center;
+                color: white;
+                font-family: Arial, Helvetica, sans-serif;
+                font-weight: normal;
+            }
+
         #chat-window {
             background-color: #D4D4D4;
             overflow: auto;
-            height: 90%;
+            height: 80%;
             flex-direction: column;
         }
 
@@ -57,14 +107,14 @@
                 clear: both;
             }
 
-            .user-message {
+            .userMessage {
                 margin-right: 15px;
                 float: right;
                 color: #fff;
                 background-color: #6666FF;
             }
 
-            .chatbot-message {
+            .chatbotMessage {
                 margin-left: 15px;
                 float: left;
                 color: #000000;
