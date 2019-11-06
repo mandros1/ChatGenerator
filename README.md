@@ -9,7 +9,7 @@ In the HTML file where the user want for the chat window to appear we need impor
   ### Steps
   1. Add a link tag for the CSS -> "</link rel="stylesheet" type="text/css" href="###SERVER_PATH_TO_STYLE.CSS###">" on the top (preferably header of the HTML file)
   2. Add an empty div element with a 'chat-container' ID to the same HTML file -> "</div id="chat-container">" 
-  3. Add a script tag -> "<script src="###SERVER_PATH_TO_INDEX.JS###"></script>" on the bottom of the HTML file
+  3. Add a script tag -> "</script src="###SERVER_PATH_TO_INDEX.JS###"></script>" on the bottom of the HTML file
 ## Possible Errors
   -> Classes and id's in the imported CSS overalapping with the existing names of the classes and id's in clients projects
   
