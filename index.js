@@ -76,49 +76,50 @@ const mainDiv = document.getElementById('chat-container');
                         } else {
 
                             // ENABLE THIS AFTER TESTING - needed for our API
-                                // let userId = localStorage.getItem('userId');
-                                // if(userId){
-                                //     // Do everything that needs to be done
-                                // } else {
-                                //     // can't send anything to API without userId
-                                // }
-                                let userId = 423532543;
+                                let userId = sessionStorage.getItem('userId');
+                                if(userId){
+                                    let token = sessionStorage.getItem('token');
+                                    if(token){
+                                        // Do everything that needs to be done
+                                        let sanitizedText = text.replace(/[|&;$%@"<>()+,]/g, "");
 
-                            let sanitizedText = text.replace(/[|&;$%@"<>()+,]/g, "");
+                                        appendChatDivElement(sanitizedText, true);
 
-                            appendChatDivElement(sanitizedText, true);
 
-                            // let div = document.createElement('div');
-                            // div.setAttribute('class', 'user-message');
-                            // div.innerText = sanitizedText;
-                            // document.getElementById('chat-window').appendChild(div);
+                                        inputElement.value = "";
+                                        // TODO: Change the route
+                                        let apiUrl = "http://localhost:3005/api/question";
 
-                            inputElement.value = "";
+                                        let xhr = new XMLHttpRequest();
 
-                            // TODO: Change the route
-                            let apiUrl = "http://localhost:3005/api/question";
+                                        xhr.onreadystatechange = function() {
+                                            if (xhr.readyState === XMLHttpRequest.DONE) {
+                                                let json = JSON.parse(xhr.responseText);
+                                                let watsonMessages = json.message;
+                                                let values = Object.values(watsonMessages);
+                                                for (let i=0; i<values.length; i++) {
+                                                    if (values[i]['response_type'] === 'text') {
+                                                        appendChatDivElement(values[i]['text'], false);
+                                                    }
+                                                }
+                                            }
+                                        };
 
-                            let xhr = new XMLHttpRequest();
+                                        xhr.open("POST", apiUrl, true);
+                                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                        // TODO: zamijeniti value sa tokenom iz session storage-a
+                                        xhr.setRequestHeader("token", token);
 
-                            xhr.onreadystatechange = function() {
-                                if (xhr.readyState === XMLHttpRequest.DONE) {
-                                    let json = JSON.parse(xhr.responseText);
-                                    let watsonMessages = json.message;
-                                    let values = Object.values(watsonMessages);
-                                    for (let i=0; i<values.length; i++) {
-                                        if (values[i]['response_type'] === 'text') {
-                                            appendChatDivElement(values[i]['text'], false);
-                                        }
+                                        xhr.send(`userId=${userId}&question=${sanitizedText}`);
+                                    } else {
+                                        window.alert('Token is missing, please provide the token and try again!');
                                     }
+                                } else {
+                                    // can't send anything to API without userId
+                                    window.alert('User ID is missing, please provide userId value and try again!');
                                 }
-                            };
 
-                            xhr.open("POST", apiUrl, true);
-                            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                            // TODO: zamijeniti value sa tokenom iz session storage-a
-                            xhr.setRequestHeader("token", "DF3A2DEEB01F32C0C6B98DC810FB0D80");
 
-                            xhr.send(`userId=${userId}&question=${sanitizedText}`);
                         }
                     });
 
